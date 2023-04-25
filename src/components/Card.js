@@ -11,7 +11,7 @@ export default function Card(props) {
 
   return (  
   <div className="element">
-    <img className="element__image" style={{ backgroundImage: `url(${props.card.link})` }} onClick = {handleClick}/>
+    <img className="element__image" alt = {props.card.name} src = {props.card.link} onClick = {handleClick}/>
     <img src={clear} alt="" className="element__clear"/>
     <div className="element__block">
       <h2 className="element__title">{props.card.name}</h2>

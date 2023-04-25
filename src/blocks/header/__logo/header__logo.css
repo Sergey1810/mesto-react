@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
   width: 142px;
   height: 33px;
-  margin-top: 43px;
+  
 }
 
 @media screen and (max-width:910px){
@@ -17,6 +17,5 @@
   .header__logo{
     width: 104px;
     height: 25px;
-    margin-top: 28px;
   }
 }  

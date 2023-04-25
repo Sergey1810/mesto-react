@@ -4,6 +4,7 @@ import { api } from '../utils/Api'
 import Card from './Card'
 
 export default function Main(props) {
+
     const [userName, setUserName] = useState('')
     const [userDescription, setUserDescription] = useState('')
     const [userAvatar, setUserAvatar] = useState('')
@@ -25,7 +26,7 @@ export default function Main(props) {
 
   return (
     <main>
-      <section className="profile">
+      <section className="profile" >
         <div className="profile__row">
           <div className="profile__image" onClick={props.onEditAvatar}>
             <img src = {userAvatar} alt = 'Жак-Ив Кусто' className="profile__avatar" />
@@ -43,8 +44,8 @@ export default function Main(props) {
         </div>
         <button className="profile__add-btn" type="button" onClick = {props.onAddPlace}/>
       </section>
-      <section className="elements">
-        {cards.map((card)=><div key ={card.id}><Card  card={card} onCardClick={props.onCardClick}/></div> )}
+      <section className="elements" >
+        {cards.map((card, id)=><div key={id}><Card card={card} onCardClick={props.onCardClick}/></div> )}
       </section>
     </main>
   )
