@@ -25,7 +25,6 @@
 
 * React
 
-[Ссылка GitHub Pages](https://sergey1810.github.io/mesto/)
 
 Выполнил Лисовцев Сергей
 
