@@ -16,12 +16,14 @@ export default function Main(props) {
         setUserName(users.name)
         setUserDescription(users.about)
     })
+    .catch((e) => console.log(e))
    },[])
 
    useEffect(()=>{
     api.getInitialCards().then((cards)=>{
        setCards(cards)
     })
+    .catch((e) => console.log(e))
    },[])
 
   return (

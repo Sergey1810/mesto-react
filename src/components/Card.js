@@ -15,7 +15,7 @@ export default function Card(props) {
     <img src={clear} alt="" className="element__clear"/>
     <div className="element__block">
       <h2 className="element__title">{props.card.name}</h2>
-      <div>
+      <div className='element__likes'>
         <button type="button" className="element__like"></button>
         <p className="element__like-info">{props.card.likes.length}</p>
       </div>
