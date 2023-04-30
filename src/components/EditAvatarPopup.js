@@ -4,13 +4,13 @@ import {useRef} from 'react'
 
 export default function EditAvatarPopup(props) {
     
-    const avatarRef = useRef(null)
+  const avatarRef = useRef(null)
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log(avatarRef.current.value)
-        props.onUpdateAvatar(`${avatarRef.current.value}`);
-      } 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    props.onUpdateAvatar(avatarRef.current.value);
+  } 
 
   return (
     <PopupWithForm isOpen={props.isOpen} onClose={props.onClose} name = 'avatar' title = 'Обновить аватар' onSubmit={handleSubmit}> 
