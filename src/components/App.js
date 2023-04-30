@@ -1,15 +1,27 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import { api } from '../utils/Api'
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({})
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
+
+  useEffect(()=>{
+    api.getUserInfo().then((users)=>{
+       setCurrentUser(users)
+       
+    })
+    .catch((e) => console.log(e))
+   },[])
 
   const handleCardClick = (card) => {
     setSelectedCard({
@@ -35,18 +47,53 @@ const handleEditAvatarClick = () => {
 
 const handleAddPlaceClick = () => {
   setIsAddPlacePopupOpen( !isAddPlacePopupOpen )
+}
 
+function handleCardLike(item) {
+ console.log(item.card)
+//   const isLiked = card.likes.some(i => i._id === currentUser._id);
+//   api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+//     setSelectedCard((state) => state.map((c) => c._id === card._id ? newCard : c));
+// });
+if(item.card.likes.some(like => like._id === currentUser._id)){
+  api.setRemoveLike(item.card._id)
+  .then((res) => {
+    item = res
+  })
+  .catch(err => console.log(err))
+}else{
+  api.setAddLike(item.card._id)
+  .then((res)=>{
+    item = res
+  })
+  .catch(err => console.log(err))      
+}}
+
+const handleUpdateUser =(user)=>{
+  api.setUserInfo(user.name, user.about).then((res) =>{
+  setCurrentUser(res)
+  closeAllPopups()
+  }
+  )
+  .catch(err => console.log(err)) 
 }
 
   return (
+    <CurrentUserContext.Provider value={currentUser}>
   <div className="body">
     <div className="page">
       <Header/>
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick = {handleCardClick}/>
+      <Main 
+        onEditProfile={handleEditProfileClick} 
+        onAddPlace={handleAddPlaceClick} 
+        onEditAvatar={handleEditAvatarClick} 
+        onCardClick = {handleCardClick}
+        onCardLike = {handleCardLike}
+        />
       <Footer/>
     </div>
-   
-    <PopupWithForm isOpen={isEditProfilePopupOpen}  onClose={closeAllPopups} name = 'profile' title = 'Редактировать профиль'>
+    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/> 
+    {/* <PopupWithForm isOpen={isEditProfilePopupOpen}  onClose={closeAllPopups} name = 'profile' title = 'Редактировать профиль'>
       <div className = "popup__field">
         <input type = "text" className = "popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required/>
         <span className = "popup__error-message name-input-error"></span>
@@ -55,7 +102,7 @@ const handleAddPlaceClick = () => {
         <input type="text" className ="popup__input popup__input_type_job" name="job" minLength="2" maxLength="200" required/>
         <span className ="popup__error-message job-input-error"></span>
       </div>
-    </PopupWithForm>
+    </PopupWithForm> */}
     <PopupWithForm isOpen={isAddPlacePopupOpen}  onClose={closeAllPopups} name = 'card' title = 'Новое место'> 
       <div className="popup__field">
         <input type="text" className ="popup__input popup__input_type_name-card" name="title" placeholder="Название" minLength="2" maxLength="30" required/>
@@ -75,6 +122,7 @@ const handleAddPlaceClick = () => {
  
     <ImagePopup card = {selectedCard} onClose={closeAllPopups}/>
   </div>
+  </CurrentUserContext.Provider>
   );
 }
 
