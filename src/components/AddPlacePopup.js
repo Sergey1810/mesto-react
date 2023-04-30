@@ -3,8 +3,8 @@ import PopupWithForm from './PopupWithForm'
 import {useState} from 'react'
 
 export default function AddPlacePopup(props) {
-const [title, setTitle] = useState('')
-const [url, setUrl] = useState('')
+const [title, setTitle] = useState(null)
+const [url, setUrl] = useState(null)
 
 const onChangeTitle = (e) => {
     setTitle(e.target.value)
@@ -15,12 +15,11 @@ const onChangeUrl = (e) => {
 }
 
 const handleSubmit = (e) =>{
-    e.preventDefault();
-       
-    props.onAddCard({
-      name:title,
-      link:url
-    });
+  e.preventDefault();
+  props.onAddCard({
+    name:title,
+    link:url
+  });
 }
 
   return (
