@@ -1,18 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
-import { api } from '../utils/Api'
+
 import Card from './Card'
 
 export default function Main(props) {
-    const [cards, setCards] = useState([])
+    
     const users = useContext(CurrentUserContext)
-
-   useEffect(()=>{
-    api.getInitialCards().then((cards)=>{
-       setCards(cards)
-    })
-    .catch((e) => console.log(e))
-   },[])
 
   return (
     <main>
@@ -35,7 +28,7 @@ export default function Main(props) {
         <button className="profile__add-btn" type="button" onClick = {props.onAddPlace}/>
       </section>
       <section className="elements" >
-        {cards.map((card, id)=><div key={id}><Card card={card} onCardClick={props.onCardClick} onCardLike = {props.onCardLike}/></div> )}
+        {props.cards.map((card, id)=><div key={id}><Card card={card} onCardClick={props.onCardClick} onCardLike = {props.onCardLike}/></div> )}
       </section>
     </main>
   )
