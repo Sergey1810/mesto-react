@@ -9,8 +9,8 @@ export default function Card(props) {
 
   const isOwn = props.card.owner._id === users._id;
 
-  const handleDeleteClick = () =>{
-
+  const handleDeleteClick = () =>{ 
+    props.onCardDelete(props.card._id)
   }
   const isLiked = props.card.likes.some(i => i._id === users._id);
 
@@ -18,15 +18,15 @@ export default function Card(props) {
     `element__like ${isLiked && 'element__like_active'}` 
   );
 
-    function handleClick() {
-        props.onCardClick({
-            link:props.card.link,
-            name:props.card.name});
-      }  
+  function handleClick() {
+    props.onCardClick({
+      link:props.card.link,
+      name:props.card.name});
+  }  
 
-      function handleLikeClick(){
-        props.onCardLike({card:props.card})
-      }
+  function handleLikeClick(){
+    props.onCardLike({card:props.card})
+  }
 
   return (  
   <div className="element">

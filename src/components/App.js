@@ -59,28 +59,25 @@ function App() {
   }
 
 function handleCardLike(item) {
- console.log(item.card)
-//   const isLiked = card.likes.some(i => i._id === currentUser._id);
-//   api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-//     setSelectedCard((state) => state.map((c) => c._id === card._id ? newCard : c));
-// });
+
 if(item.card.likes.some(like => like._id === currentUser._id)){
   api.setRemoveLike(item.card._id)
-  .then((res) => {
-    item = res
+  .then((newCard) => {
+    setCards((state) => state.map((c) => c._id === item.card._id ? newCard : c));
   })
   .catch(err => console.log(err))
 }else{
   api.setAddLike(item.card._id)
-  .then((res)=>{
-    item = res
+  .then((newCard)=>{
+    setCards((state) => state.map((c) => c._id === item.card._id ? newCard : c));
   })
   .catch(err => console.log(err))      
 }}
 
 function handleCardDelete(id){
    api.setDeleteCard(id).then(() =>{
-     
+    const newCards = cards.filter(i => i._id !== id)
+    setCards(newCards)  
    })
    .catch(err => console.log(err)) 
 }
