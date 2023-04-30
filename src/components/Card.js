@@ -31,7 +31,7 @@ export default function Card(props) {
   return (  
   <div className="element">
     <img className="element__image" alt = {props.card.name} src = {props.card.link} onClick = {handleClick}/>
-     <img src={clear} alt="" className={`element__clear ${isOwn && 'element__clear_visible'}`} onClick={handleDeleteClick}/> 
+     <img src={clear} alt="корзина" className={`element__clear ${isOwn && 'element__clear_visible'}`} onClick={handleDeleteClick}/> 
     <div className="element__block">
       <h2 className="element__title">{props.card.name}</h2>
       <div className='element__likes'>

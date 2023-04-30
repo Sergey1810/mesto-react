@@ -6,10 +6,13 @@ export default function EditAvatarPopup(props) {
     
   const avatarRef = useRef(null)
 
+  React.useEffect(() => {
+    avatarRef.current.value = ''
+  }, [props.isOpen]);
+
   function handleSubmit(e) {
     e.preventDefault();
     props.onUpdateAvatar(avatarRef.current.value);
-    avatarRef.current.value = ''
   } 
 
   return (

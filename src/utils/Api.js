@@ -7,7 +7,7 @@ class Api {
       this.profileTitle = document.querySelector('.profile__title');
       this.profileAbout = document.querySelector('.profile__subtitle')
     }
-    _isResponse(res){
+    _checkResponse(res){
         if(res.ok){
             return res.json()
         }
@@ -18,14 +18,14 @@ class Api {
        return fetch(`${this.baseUrl}/users/me`, {
                 headers: this.headers
             })
-            .then((res) => {return this._isResponse(res)})
+            .then((res) => {return this._checkResponse(res)})
         }
   
     getInitialCards() {
        return fetch(`${this.baseUrl}/cards`, {
             headers: this.headers
         })
-        .then((res) => {return this._isResponse(res)})
+        .then((res) => {return this._checkResponse(res)})
     }
 
     setUserInfo(name, about){
@@ -36,7 +36,7 @@ class Api {
               name: `${name}`,
              about: `${about}`
             })})
-            .then(res => {return this._isResponse(res)})
+            .then(res => {return this._checkResponse(res)})
     }
 
     setAddCard(name, link){
@@ -48,7 +48,7 @@ class Api {
               link: `${link}`
              })   
          })
-         .then(res => {return this._isResponse(res)})
+         .then(res => {return this._checkResponse(res)})
         }
 
     setDeleteCard(id){ 
@@ -56,7 +56,7 @@ class Api {
             method: 'DELETE',
             headers: this.headers,
             })
-            .then(res => {return this._isResponse(res)})
+            .then(res => {return this._checkResponse(res)})
     }  
 
     setAddLike(id){
@@ -64,7 +64,7 @@ class Api {
                 method: 'PUT',
                 headers: this.headers,
              }) 
-             .then(res => {return this._isResponse(res)})
+             .then(res => {return this._checkResponse(res)})
     }
 
     setRemoveLike(id){
@@ -72,7 +72,7 @@ class Api {
                 method: 'DELETE',
                 headers: this.headers,
              })
-             .then(res => {return this._isResponse(res)})
+             .then(res => {return this._checkResponse(res)})
     }
 
     setChangeAvatar(url){
@@ -82,7 +82,7 @@ class Api {
         body: JSON.stringify({
         avatar: `${url}`
         })})
-      .then(res => {return this._isResponse(res)})
+      .then(res => {return this._checkResponse(res)})
     }
   }
 

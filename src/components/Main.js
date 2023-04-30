@@ -9,26 +9,33 @@ export default function Main(props) {
 
   return (
     <main>
-      <section className="profile" >
-        <div className="profile__row">
-          <div className="profile__image" onClick={props.onEditAvatar}>
-            <img src = {users.avatar} alt = 'Жак-Ив Кусто' className="profile__avatar" />
-            <div className="profile__image-hover">
+      <section className = "profile" >
+        <div className = "profile__row">
+          <div className = "profile__image" onClick = {props.onEditAvatar}>
+            <img src = {users.avatar} alt = {users.name} className = "profile__avatar" />
+            <div className = "profile__image-hover">
               <div className = "profile__icon"></div>
             </div>  
           </div>
-          <div className="profile__info">
-            <div className="profile__row-title">
-              <h1 className="profile__title">{users.name}</h1>
-              <button className="profile__create-btn" type="button" onClick={props.onEditProfile}/>
+          <div className = "profile__info">
+            <div className = "profile__row-title">
+              <h1 className = "profile__title">{users.name}</h1>
+              <button className = "profile__create-btn" type = "button" onClick = {props.onEditProfile}/>
           </div>
-          <p className="profile__subtitle">{users.about}</p>
+          <p className = "profile__subtitle">{users.about}</p>
           </div> 
         </div>
-        <button className="profile__add-btn" type="button" onClick = {props.onAddPlace}/>
+        <button className = "profile__add-btn" type = "button" onClick = {props.onAddPlace}/>
       </section>
-      <section className="elements" >
-        {props.cards.map((card, id)=><div key={id}><Card card={card} onCardClick={props.onCardClick} onCardLike = {props.onCardLike} onCardDelete ={props.onCardDelete}/></div> )}
+      <section className = "elements" >
+        {props.cards.map((card) => (
+        <Card 
+        key = {card._id} 
+        card = {card} 
+        onCardClick = {props.onCardClick}
+        onCardLike = {props.onCardLike} 
+        onCardDelete = {props.onCardDelete}
+        /> ))}
       </section>
     </main>
   )
