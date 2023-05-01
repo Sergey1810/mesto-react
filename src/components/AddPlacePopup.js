@@ -3,8 +3,8 @@ import PopupWithForm from './PopupWithForm'
 import {useState} from 'react'
 
 export default function AddPlacePopup(props) {
-const [title, setTitle] = useState(null)
-const [url, setUrl] = useState(null)
+const [title, setTitle] = useState('')
+const [url, setUrl] = useState('')
 
 const onChangeTitle = (e) => {
     setTitle(e.target.value)
